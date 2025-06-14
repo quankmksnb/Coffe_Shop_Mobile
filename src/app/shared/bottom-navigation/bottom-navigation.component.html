@@ -1,0 +1,13 @@
+<div class="bottom-navigation d-flex">
+  @for (navItem of listNavigation; track navItem.id) {
+  <button class="nav-item" type="button" 
+  (click)="onNavItemClick(navItem)">
+    <div
+      class="nav-icon-container"
+      [class.active]="navItem.isActive"
+      [innerHTML]="getSafeHtml(navItem.icon)"
+    ></div>
+    <div class="nav-indicator" [class.show]="navItem.isActive"></div>
+  </button>
+  }
+</div>

@@ -1,0 +1,57 @@
+<section class="categories-content">
+  <!-- Categories Section -->
+  <section class="categories-section">
+    <div class="categories-scroll d-flex flex-nowrap">
+      @for (category of listCategories(); track category.id) {
+      <button
+        class="btn category-btn"
+        type="button"
+        [class.active]="category.isActive"
+        (click)="onCategoryClick(category)"
+      >
+        {{ category.name }}
+      </button>
+      }
+    </div>
+  </section>
+
+  <!-- Coffee Products Grid -->
+  <section class="products-section">
+    <div class="row">
+      @for (product of listProducts(); track product.id) {
+      <article class="col-6">
+        <div class="card product-card h-100">
+          <div class="card-img-wrapper position-relative">
+            <img
+              [src]="product.imageUrl"
+              class="card-img-top product-image"
+              [alt]="product.name"
+              [title]="product.name"
+            />
+            <div class="rating-badge position-absolute">
+              <i class="ri-star-fill text-warning"></i>
+              <span class="rating-text">{{ product.rating }}</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title product-name">{{ product.name }}</h3>
+            <p class="card-text product-description">
+              {{ product.description }}
+            </p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="product-price fw-bold">$ {{ product.price }}</span>
+              <button
+                class="btn add-btn"
+                type="button"
+                aria-label="Add to cart"
+              >
+                <i class="ri-add-line"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </article>
+    }  
+    </div>
+  </section>
+</section>

@@ -1,0 +1,31 @@
+.buy-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem 1.5rem;
+  background-color: var(--white-color);
+  z-index: 1050;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px; 
+  button {
+    background-color: #C67C4E;
+    color: var(--white-color);
+    font-weight: 600;
+    line-height: 1.5;
+    padding: 1rem 4.5rem;
+    border-radius: 1rem;
+  }
+  h6 {
+    font-weight: 400;
+    line-height: 1.2;
+    color: #909090;
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+  }
+  .price-value {
+    color: #C67C4E;
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+}
