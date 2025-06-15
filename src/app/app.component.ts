@@ -3,11 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import { CoffeeDetailComponent } from "./features/coffee-detail/coffee-detail.component";
 import { CoffeeHomeComponent } from "./features/coffee-home/coffee-home.component";
 import { BottomNavigationComponent } from "./shared/bottom-navigation/bottom-navigation.component";
+import { CoffeeOrderComponent } from "./features/coffee-order/coffee-order.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, BottomNavigationComponent, CoffeeHomeComponent, CoffeeDetailComponent],
+  imports: [RouterOutlet, BottomNavigationComponent, CoffeeHomeComponent, CoffeeDetailComponent, CoffeeOrderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

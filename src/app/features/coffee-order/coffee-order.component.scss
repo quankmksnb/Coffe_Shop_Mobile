@@ -1,0 +1,347 @@
+// Card styling
+.card {
+  border: none;
+  padding: 0 24px;
+  background-color: #f9f9f9;
+  .card-body {
+    padding: 0;
+  }
+}
+
+// Delivery Toggle
+.delivery-toggle {
+  padding: 0 24px;
+  margin-bottom: 24px;
+  .delivery-options {
+    padding: 0.25rem;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #ededed;
+
+    .deliver-btn,
+    .pickup-btn {
+      padding: 8px 48px;
+      border-radius: 8px;
+      color: #242424;
+      font-weight: 400;
+      font-size: 1rem;
+      line-height: 1.2;
+
+      &.active {
+        background-color: #c67c4e;
+        color: #ffffff;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+// Delivery Address
+.delivery-address {
+  margin-bottom: 16px;
+  h2 {
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+  .delivery-info {
+    margin-bottom: 16px;
+    .address-main {
+      color: #313131;
+      font-weight: 600;
+      font-size: 0.875rem;
+      line-height: 150%;
+      margin-bottom: 0.25rem;
+    }
+
+    .address-detail {
+      color: #a2a2a2;
+      font-weight: 400;
+      font-size: 0.75rem;
+      line-height: 120%;
+    }
+  }
+
+  .address-actions {
+    margin-bottom: 16px;
+    display: flex;
+    gap: 0.5rem;
+
+    .action-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 6px 12px;
+      font-size: 0.75rem;
+      font-weight: 400;
+      border-color: #d1d5db;
+      border-radius: 16px;
+      color: #313131;
+      border: 1px solid #a2a2a2;
+      background-color: #ffffff;
+
+      i {
+        width: 0.875rem;
+        height: 0.875rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+  hr {
+    border: 1px solid #e3e3e3;
+    padding: 0 40px;
+    border-width: 1px;
+  }
+}
+
+// Product Item
+.product-item {
+  margin-bottom: 16px;
+  .product-details {
+    .product-image {
+      width: 3.375rem;
+      height: 3.375rem;
+      border-radius: 8px;
+      margin-right: 1rem;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .product-info {
+      flex: 1;
+
+      .product-name {
+        font-weight: 600;
+        color: #242424;
+        margin-bottom: 0.25rem;
+        font-size: 1rem;
+      }
+
+      .product-variant {
+        color: #a2a2a2;
+        font-size: 0.75rem;
+        margin: 0;
+      }
+    }
+
+    .quantity-control {
+      gap: 1.125rem;
+
+      .quantity-btn {
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: 20px;
+        border: 1px solid #f9f2ed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        background-color: #ffffff;
+
+        &:focus {
+          box-shadow: none;
+        }
+        .ri-subtract-line {
+          color: #a2a2a2;
+        }
+        .ri-add-line {
+          color: #2a2a2a;
+        }
+      }
+
+      .quantity-display {
+        color: #2a2a2a;
+        font-weight: ̉600;
+        font-size: 0.875rem;
+      }
+    }
+  }
+  hr {
+    background: #d36617;
+  }
+}
+
+// Discount Section
+.discount-section {
+  background-color: #ffffff;
+  margin: 0 24px 24px;
+  border: 1px solid #ededed;
+  border-radius: 16px;
+  padding: 16px;
+
+  .discount-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .discount-content {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .discount-icon {
+        color: #c67c4e;
+        font-size: 1.25rem;
+      }
+
+      .discount-text {
+        color: #313131;
+        font-weight: 600;
+        font-size: 0.875rem;
+      }
+    }
+
+    .discount-arrow {
+      padding: 0;
+      color: #2a2a2a;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+
+      &:focus {
+        box-shadow: none;
+      }
+
+      i {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+}
+
+// Payment Summary
+.payment-summary {
+  h2 {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 150%;
+    color: #242424;
+    margin-bottom: 16px;
+  }
+  .summary-items {
+    .summary-item {
+      margin-bottom: 0.5rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .item-label {
+        color: #313131;
+        font-weight: 400;
+        font-size: 0.875rem;
+        line-height: 150%;
+      }
+
+      .item-value {
+        color: #242424;
+        font-weight: 600;
+        font-size: 0.875rem;
+      }
+
+      .original-fee {
+        font-weight: 400;
+        font-size: 0.875rem;
+        line-height: 150%;
+        text-decoration: line-through;
+      }
+    }
+  }
+}
+
+// Payment Method
+.payment-method {
+  margin: 1rem;
+
+  .payment-method-btn {
+    width: 100%;
+    background: white;
+    border: 1px solid #f3f4f6;
+    border-radius: 12px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &:focus {
+      box-shadow: none;
+    }
+
+    .payment-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+
+      .payment-icon {
+        color: #c67c4e;
+        font-size: 1.25rem;
+      }
+
+      .payment-type {
+        color: #1f2937;
+      }
+    }
+
+    .payment-amount {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      .total-amount {
+        color: #1f2937;
+        font-weight: 500;
+      }
+
+      .arrow-icon {
+        color: #6b7280;
+        transition: transform 0.2s;
+
+        &.rotated {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+}
+
+// Order Footer
+.order-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  background: white;
+  border-top: 1px solid #f3f4f6;
+
+  .order-btn {
+    width: 100%;
+    background-color: #c67c4e;
+    border-color: #c67c4e;
+    padding: 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+
+    &:hover {
+      background-color: #a56739;
+      border-color: #a56739;
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 0.2rem rgba(198, 124, 78, 0.25);
+    }
+  }
+}
