@@ -86,7 +86,6 @@ export class BottomNavigationComponent implements OnInit {
     
     selectedItem.isActive = true;
     
-
     console.log('Selected navigation:', selectedItem.id);
   }
 

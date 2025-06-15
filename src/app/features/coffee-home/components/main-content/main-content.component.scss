@@ -1,6 +1,3 @@
-@import url("https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css");
-
-
 .categories-content {
   padding: 0 24px;
   position: relative;
@@ -80,13 +77,11 @@
       .rating-badge {
         top: 0.5rem;
         right: 0.5rem;
-        padding: 0.25rem 0.5rem;
-        display: flex;
-        align-items: center;
+        padding: 0.5rem 0.5rem;
         font-size: 0.75rem;
 
         .rating-text {
-          margin-left: 0.5rem;
+          margin-left: 0.25rem;
           font-weight: 600;
           color: var(--white-color);
           font-size: 0.5rem;

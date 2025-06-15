@@ -1,0 +1,18 @@
+.header-back {
+  padding: 0 24px;
+  // position: fixed;
+  // top: 24px;
+  margin: 24px 0;
+
+  h2 {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: #242424;
+  }
+  .icon-header-top {
+    border-radius: 12px;
+    padding: 10px;
+    gap: 10px;
+  }
+}

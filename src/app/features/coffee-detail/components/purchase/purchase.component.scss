@@ -1,5 +1,4 @@
 .buy-footer {
-  position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
@@ -9,7 +8,7 @@
   border-top-left-radius: 16px;
   border-top-right-radius: 16px; 
   button {
-    background-color: #C67C4E;
+    background-color: var(--button-color);
     color: var(--white-color);
     font-weight: 600;
     line-height: 1.5;
@@ -24,7 +23,7 @@
     margin-bottom: 0.25rem;
   }
   .price-value {
-    color: #C67C4E;
+    color:  var(--button-color);
     font-size: 1.125rem;
     font-weight: 600;
   }
