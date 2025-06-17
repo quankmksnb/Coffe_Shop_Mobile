@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { CoffeeDetailComponent } from "./features/coffee-detail/coffee-detail.component";
 import { CoffeeHomeComponent } from "./features/coffee-home/coffee-home.component";
-import { BottomNavigationComponent } from "./shared/bottom-navigation/bottom-navigation.component";
 import { CoffeeOrderComponent } from "./features/coffee-order/coffee-order.component";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, BottomNavigationComponent, CoffeeHomeComponent, CoffeeDetailComponent, CoffeeOrderComponent],
+  imports: [RouterOutlet, CommonModule, RouterLink, CoffeeHomeComponent, CoffeeDetailComponent, CoffeeOrderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

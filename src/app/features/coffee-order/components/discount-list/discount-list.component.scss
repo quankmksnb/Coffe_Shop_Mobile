@@ -1,0 +1,47 @@
+.card {
+  border: none;
+  padding: 0 24px;
+  background-color: var(--background-main);
+  .card-body {
+    padding: 0;
+  }
+}
+.discount-section {
+  background-color: var(--white-color);
+  margin: 0 24px 24px;
+  border: 1px solid var(--bgc-delivery);
+  border-radius: 16px;
+  padding: 16px;
+
+  .discount-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .discount-content {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+
+      .discount-text {
+        color: var(--btn-color);
+        font-weight: 600;
+        font-size: 0.875rem;
+      }
+    }
+
+    .discount-arrow {
+      padding: 0;
+      color: var(--input-color);
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+}

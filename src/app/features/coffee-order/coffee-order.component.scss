@@ -2,7 +2,7 @@
 .card {
   border: none;
   padding: 0 24px;
-  background-color: #f9f9f9;
+  background-color: var(--background-main);
   .card-body {
     padding: 0;
   }
@@ -16,88 +16,23 @@
     padding: 0.25rem;
     border-radius: 12px;
     overflow: hidden;
-    background: #ededed;
+    background: var(--bgc-delivery);
 
     .deliver-btn,
     .pickup-btn {
       padding: 8px 48px;
       border-radius: 8px;
-      color: #242424;
+      color: var(--color-heading);
       font-weight: 400;
       font-size: 1rem;
       line-height: 1.2;
 
       &.active {
-        background-color: #c67c4e;
-        color: #ffffff;
+        background-color: var(--button-color);
+        color: var(--white-color);
         font-weight: 600;
       }
     }
-  }
-}
-
-// Delivery Address
-.delivery-address {
-  margin-bottom: 16px;
-  h2 {
-    font-weight: 600;
-    font-size: 1rem;
-    line-height: 1.5;
-    margin-bottom: 1rem;
-  }
-  .delivery-info {
-    margin-bottom: 16px;
-    .address-main {
-      color: #313131;
-      font-weight: 600;
-      font-size: 0.875rem;
-      line-height: 150%;
-      margin-bottom: 0.25rem;
-    }
-
-    .address-detail {
-      color: #a2a2a2;
-      font-weight: 400;
-      font-size: 0.75rem;
-      line-height: 120%;
-    }
-  }
-
-  .address-actions {
-    margin-bottom: 16px;
-    display: flex;
-    gap: 0.5rem;
-
-    .action-btn {
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
-      padding: 6px 12px;
-      font-size: 0.75rem;
-      font-weight: 400;
-      border-color: #d1d5db;
-      border-radius: 16px;
-      color: #313131;
-      border: 1px solid #a2a2a2;
-      background-color: #ffffff;
-
-      i {
-        width: 0.875rem;
-        height: 0.875rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      &:focus {
-        box-shadow: none;
-      }
-    }
-  }
-  hr {
-    border: 1px solid #e3e3e3;
-    padding: 0 40px;
-    border-width: 1px;
   }
 }
 
@@ -123,13 +58,13 @@
 
       .product-name {
         font-weight: 600;
-        color: #242424;
+        color: var(--color-heading);
         margin-bottom: 0.25rem;
         font-size: 1rem;
       }
 
       .product-variant {
-        color: #a2a2a2;
+        color: var(--icon-color);
         font-size: 0.75rem;
         margin: 0;
       }
@@ -142,26 +77,26 @@
         width: 1.5rem;
         height: 1.5rem;
         border-radius: 20px;
-        border: 1px solid #f9f2ed;
+        border: 1px solid var(--border-color-sub);
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 0;
-        background-color: #ffffff;
+        background-color: var(--white-color);
 
         &:focus {
           box-shadow: none;
         }
         .ri-subtract-line {
-          color: #a2a2a2;
+          color: var(--icon-color);
         }
         .ri-add-line {
-          color: #2a2a2a;
+          color: var(--input-color);
         }
       }
 
       .quantity-display {
-        color: #2a2a2a;
+        color: var(--input-color);
         font-weight: ̉600;
         font-size: 0.875rem;
       }
@@ -172,63 +107,14 @@
   }
 }
 
-// Discount Section
-.discount-section {
-  background-color: #ffffff;
-  margin: 0 24px 24px;
-  border: 1px solid #ededed;
-  border-radius: 16px;
-  padding: 16px;
-
-  .discount-info {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    .discount-content {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-
-      .discount-icon {
-        color: #c67c4e;
-        font-size: 1.25rem;
-      }
-
-      .discount-text {
-        color: #313131;
-        font-weight: 600;
-        font-size: 0.875rem;
-      }
-    }
-
-    .discount-arrow {
-      padding: 0;
-      color: #2a2a2a;
-      width: 20px;
-      height: 20px;
-      display: flex;
-      align-items: center;
-
-      &:focus {
-        box-shadow: none;
-      }
-
-      i {
-        width: 20px;
-        height: 20px;
-      }
-    }
-  }
-}
-
 // Payment Summary
 .payment-summary {
+  margin-bottom: 2rem;
   h2 {
     font-weight: 600;
     font-size: 16px;
     line-height: 150%;
-    color: #242424;
+    color: var(--color-heading);
     margin-bottom: 16px;
   }
   .summary-items {
@@ -240,14 +126,14 @@
       }
 
       .item-label {
-        color: #313131;
+        color: var(--btn-color);
         font-weight: 400;
         font-size: 0.875rem;
         line-height: 150%;
       }
 
       .item-value {
-        color: #242424;
+        color: var(--color-heading);
         font-weight: 600;
         font-size: 0.875rem;
       }
@@ -264,80 +150,51 @@
 
 // Payment Method
 .payment-method {
-  margin: 1rem;
+  background-color: var(--white-color);
+  border-radius: 16px;
+  padding: 16px 24px;
 
   .payment-method-btn {
-    width: 100%;
-    background: white;
-    border: 1px solid #f3f4f6;
-    border-radius: 12px;
-    padding: 1rem;
+    margin-bottom: 8px;
+    background: var(--white-color);
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    svg {
+      margin-right: 12px;
+    }
+    .icon-left {
+      margin-left: auto;
+    }
 
     &:focus {
       box-shadow: none;
     }
 
-    .payment-info {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-
-      .payment-icon {
-        color: #c67c4e;
-        font-size: 1.25rem;
-      }
-
-      .payment-type {
-        color: #1f2937;
-      }
+    .payment-type {
+      color: var(--color-heading);
+      font-weight: 600;
+      font-size: 0.875rem;
+      line-height: 120%;
+      margin-bottom: 4px;
     }
 
-    .payment-amount {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-
-      .total-amount {
-        color: #1f2937;
-        font-weight: 500;
-      }
-
-      .arrow-icon {
-        color: #6b7280;
-        transition: transform 0.2s;
-
-        &.rotated {
-          transform: rotate(180deg);
-        }
-      }
+    .total-amount {
+      color: var(--button-color);
+      font-weight: 600;
+      font-size: 0.75rem;
+      line-height: 150%;
     }
   }
-}
-
-// Order Footer
-.order-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 1rem;
-  background: white;
-  border-top: 1px solid #f3f4f6;
-
   .order-btn {
     width: 100%;
-    background-color: #c67c4e;
-    border-color: #c67c4e;
-    padding: 1rem;
-    border-radius: 8px;
+    background-color: var(--button-color);
+    padding: 16px 0;
+    border-radius: 16px;
     font-weight: 600;
+    color: var(--white-color);
 
     &:hover {
-      background-color: #a56739;
-      border-color: #a56739;
+      background-color: var(--button-hover);
     }
 
     &:focus {

@@ -4,10 +4,10 @@
   padding: 0 24px;
 
   .coffee-image {
-    border-radius: 16px;
     margin-bottom: 1rem;
     img {
       width: 100%;
+      border-radius: 16px;
     }
   }
 
@@ -17,14 +17,14 @@
     .coffee-title {
       font-size: 1.25rem;
       font-weight: 600;
-      color: #242424;
+      color: var(--color-heading);
       line-height: 1.5;
       margin-bottom: 0.25rem;
     }
 
     .coffee-type {
       font-size: 0.75rem;
-      color: #a2a2a2;
+      color: var(--icon-color);
       font-weight: 400;
       line-height: 1.2;
       margin-bottom: 1rem;
@@ -37,13 +37,13 @@
     .rating-count {
       font-weight: 400;
       font-size: 12px;
-      color: #a2a2a2;
+      color: var(--icon-color);
       margin-left: 0.25rem;
     }
 
     .coffee-icons {
       gap: 12px;
-      color: #e67e22;
+      color: var(--icon-detail);
       cursor: help;
       transition: color 0.2s ease;
 
@@ -67,11 +67,11 @@
       font-weight: 600;
       line-height: 1.5;
       margin-bottom: 0.5rem;
-      color: #242424;
+      color: var(--color-heading);
     }
 
     .description-text {
-      color: #a2a2a2;
+      color: var(--icon-color);
       font-weight: 300;
       font-size: 14px;
       line-height: 150%;
@@ -80,7 +80,7 @@
     }
 
     .read-more-btn {
-      color: #c67c4e;
+      color: var(--icon-detail);
       font-weight: 600;
       font-size: 0.875rem;
       line-height: 150%;
@@ -117,15 +117,15 @@
         text-align: center;
 
         &:hover {
-          border-color: #e67e22;
-          color: #e67e22;
+          border-color: var(--button-check);
+          color: var(--button-check);
         }
       }
 
       .btn-check:checked + .size-btn {
         background-color: rgba(230, 126, 34, 0.1);
-        border: 2px solid #e67e22;
-        color: #e67e22;
+        border: 2px solid var(--button-check);
+        color: var(--button-check);
         font-weight: 600;
       }
     }

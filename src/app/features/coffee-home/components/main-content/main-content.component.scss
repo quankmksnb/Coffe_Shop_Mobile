@@ -2,8 +2,78 @@
   padding: 0 24px;
   position: relative;
   top: -46px;
+  margin-bottom: 40px;
 }
+.loading-container {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
+  .loading-text {
+    font-size: 1rem;
+    margin-top: 1rem;
+  }
+}
+.no-data-container {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .no-data-icon {
+    opacity: 0.6;
+
+    svg {
+      width: 64px;
+      height: 64px;
+    }
+  }
+
+  .no-data-title {
+    color: #374151;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .no-data-description {
+    color: #6b7280;
+    font-size: 0.95rem;
+    max-width: 400px;
+    line-height: 1.5;
+  }
+}
+.ingredients-container {
+  .ingredients-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .ingredient-tag {
+    background-color: #f8f9fa;
+    color: #A2A2A2;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border: 1px solid #e9ecef;
+    white-space: nowrap;
+    
+    &:hover {
+      background-color: #e9ecef;
+    }
+  }
+
+  .no-ingredients {
+    font-size: 0.8rem;
+    font-style: italic;
+  }
+}
 .categories-section {
   margin-bottom: 16px;
   .categories-scroll {
@@ -72,6 +142,7 @@
         object-position: top;
         transition: transform 0.35s ease;
         border-radius: 12px;
+        cursor: pointer;
       }
 
       .rating-badge {
@@ -92,6 +163,8 @@
 
     .card-body {
       padding: 0px 8px 12px 8px;
+      display: flex;
+  flex-direction: column;
 
       .product-name {
         font-size: 1rem;
@@ -115,7 +188,6 @@
 
       .add-btn {
         background-color: var(--button-color);
-;
         color: var(--white-color);
         border: none;
         width: 32px;
@@ -142,6 +214,9 @@
         &:active {
           transform: scale(0.95);
         }
+      }
+      .footer-card{
+        margin-top: auto;
       }
     }
   }

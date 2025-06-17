@@ -3,8 +3,8 @@
 <section class="coffee-detail">
   <figure class="coffee-image">
     <img
-      src="{{product.imgHref}}"
-      alt="{{product.name}}"
+      src="{{ productDetail?.imageUrl }}"
+      alt="{{ productDetail?.name }}"
       class="img-fluid"
     />
   </figure>
@@ -12,7 +12,7 @@
   <article class="coffee-header">
     <div class="d-flex align-items-center mb-3">
       <div class="d-flex flex-column">
-        <h2 class="coffee-title">{{product.name}}</h2>
+        <h2 class="coffee-title">{{ productDetail?.name }}</h2>
         <span class="coffee-type">Ice/Hot</span>
         <span class="coffee-rating d-flex align-items-center">
           <svg
@@ -204,8 +204,15 @@
   <article class="coffee-description">
     <h2 class="description-title">Description</h2>
     <p class="description-text">
-      {{product.description}}
-      <button type="button" class="btn read-more-btn p-0">Read More</button>
+      {{ getDisplayDescription() }}
+      <button
+        *ngIf="shouldShowReadMore()"
+        type="button"
+        class="btn read-more-btn p-0"
+        (click)="toggleDescription()"
+      >
+        {{ isDescriptionExpanded ? "Read Less" : "Read More" }}
+      </button>
     </p>
   </article>
 
@@ -214,21 +221,43 @@
     <fieldset class="size-options">
       <div class="row d-flex justify-content-between">
         <div class="col-4">
-          <input type="radio" id="size-s" value="S" name="coffeeSize" class="btn-check"
+          <input
+            type="radio"
+            id="size-s"
+            value="S"
+            name="coffeeSize"
+            class="btn-check"
+            (change)="onSizeChange('S')"
+            [checked]="selectedSize === 'S'"
+            checked
           />
           <label for="size-s" class="btn btn-outline-secondary w-100 size-btn">
             S
           </label>
         </div>
         <div class="col-4">
-          <input type="radio" id="size-m" value="M" name="coffeeSize" class="btn-check" checked
+          <input
+            type="radio"
+            id="size-m"
+            value="M"
+            name="coffeeSize"
+            class="btn-check"
+            [checked]="selectedSize === 'M'"
+            (change)="onSizeChange('M')"
           />
           <label for="size-m" class="btn btn-outline-secondary w-100 size-btn">
             M
           </label>
         </div>
         <div class="col-4">
-          <input type="radio" id="size-l" value="L" name="coffeeSize" class="btn-check"
+          <input
+            type="radio"
+            id="size-l"
+            value="L"
+            name="coffeeSize"
+            class="btn-check"
+            (change)="onSizeChange('L')"
+            [checked]="selectedSize === 'L'"
           />
           <label for="size-l" class="btn btn-outline-secondary w-100 size-btn">
             L
@@ -238,3 +267,7 @@
     </fieldset>
   </article>
 </section>
+<app-purchase 
+  [price]="productDetail?.price || 0" 
+  [selectedSize]="selectedSize">
+</app-purchase>

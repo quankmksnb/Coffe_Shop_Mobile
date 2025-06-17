@@ -1,9 +1,10 @@
 export default interface CoffeeProductModel {
-  id: string;
+  id: number;
   name: string;
   description: string;
   price: number;
   rating: number;
   imageUrl: string;
-  category: string;
+  category?: string;
+  ingredients: string[];
 }

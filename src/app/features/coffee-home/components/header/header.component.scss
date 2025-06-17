@@ -109,7 +109,7 @@
   }
 }
 .image-background {
-  background-image: url("/assets/img/coffee/Banner 1.jpg");
+  background-image: url("/assets/img/coffee/banner1.jpg");
   background-size: contain;
   background-size: 100%;
   background-repeat: no-repeat;
@@ -138,8 +138,12 @@
     font-size: 2rem;
     font-weight: 600;
     .offer-text {
-      background: linear-gradient(240.86deg, #111111 0%, #313131 100%);
-      background-size: 100% 10px;
+      background: linear-gradient(
+        to bottom,
+        transparent 25%,
+        black 75%
+      );
+      background-repeat: no-repeat;
     }
   }
 }
