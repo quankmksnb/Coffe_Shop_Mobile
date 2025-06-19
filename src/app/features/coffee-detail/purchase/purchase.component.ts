@@ -1,9 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input, SimpleChanges } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-purchase',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, RouterLink],
   templateUrl: './purchase.component.html',
   styleUrl: './purchase.component.scss',
 })

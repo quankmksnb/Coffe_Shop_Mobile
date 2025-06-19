@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
-import CoffeeProductModel from 'src/app/features/coffee-home/components/main-content/models/coffee-product.model';
+import CoffeeProductModel from 'src/app/features/coffee-home/models/coffee-product.model';
 
 @Injectable({
   providedIn: 'root',

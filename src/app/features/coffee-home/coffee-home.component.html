@@ -1,3 +1,126 @@
 <app-header-home></app-header-home>
-<app-main-content></app-main-content>
+<section class="categories-content">
+  <!-- Categories Section -->
+  <section class="categories-section">
+    <div class="categories-scroll d-flex flex-nowrap">
+      @for (category of listCategories(); track category.id) {
+      <button
+        class="btn category-btn"
+        type="button"
+        [class.active]="category.isActive"
+        (click)="onCategoryClick(category)"
+      >
+        {{ category.name }}
+      </button>
+      }
+    </div>
+  </section>
+
+  <!-- Coffee Products Grid -->
+  <section class="products-section">
+    @if (isLoading()) {
+    <!-- Loading State -->
+    <div class="loading-container text-center py-5">
+      <output class="spinner-border text-info mb-3">
+        <span class="visually-hidden">Loading...</span>
+      </output>
+      <p class="loading-text text-muted">Loading coffee products...</p>
+    </div>
+    } @else if (filteredProducts().length > 0) {
+    <div class="row">
+      @for (product of filteredProducts(); track product.id) {
+      <article class="col-md-3 col-6">
+        <div class="card product-card h-100">
+          <div class="card-img-wrapper position-relative">
+            <img
+              [src]="product.imageUrl"
+              class="card-img-top product-image"
+              [alt]="product.name"
+              [title]="product.name"
+              [routerLink]="['/coffee-detail/', product.id]"
+              [state]="{ calculatedPrice: product.price, rating: product.rating }"
+            />
+            <div
+              class="rating-badge position-absolute d-flex align-items-center"
+            >
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 12 12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M6.86502 1.75501L7.74502 3.51501C7.86502 3.76001 8.18502 3.99501 8.45502 4.04001L10.05 4.30501C11.07 4.47501 11.31 5.21501 10.575 5.94501L9.33502 7.18501C9.12502 7.39501 9.01002 7.80001 9.07502 8.09001L9.43002 9.62501C9.71002 10.84 9.06502 11.31 7.99002 10.675L6.49502 9.79001C6.22502 9.63001 5.78002 9.63001 5.50502 9.79001L4.01002 10.675C2.94002 11.31 2.29002 10.835 2.57002 9.62501L2.92502 8.09001C2.99002 7.80001 2.87502 7.39501 2.66502 7.18501L1.42502 5.94501C0.695016 5.21501 0.930016 4.47501 1.95002 4.30501L3.54502 4.04001C3.81002 3.99501 4.13002 3.76001 4.25002 3.51501L5.13002 1.75501C5.61002 0.800007 6.39002 0.800007 6.86502 1.75501Z"
+                  fill="#FBBE21"
+                />
+              </svg>
+              <span class="rating-text">{{ product.rating }}</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <h3
+              class="card-title product-name"
+              [routerLink]="['/coffee-detail/', product.id]"
+              [state]="{ calculatedPrice: product.price, rating: product.rating }"
+            >
+              {{ product.name }}
+            </h3>
+            <div class="ingredients-container mb-2">
+              @if (product.ingredients && product.ingredients.length > 0) {
+              <div class="ingredients-list">
+                @for (ingredient of product.ingredients; track ingredient) {
+                <span class="ingredient-tag">{{ ingredient }}</span>
+                }
+              </div>
+              } @else {
+              <span class="no-ingredients text-muted"
+                >No ingredients available</span
+              >
+              }
+            </div>
+            <div
+              class="d-flex justify-content-between align-items-center footer-card"
+            >
+              <span class="product-price fw-bold">$ {{ product.price }}</span>
+              <button
+                class="btn add-btn"
+                type="button"
+                aria-label="Add to cart"
+              >
+                <i class="ri-add-line"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </article>
+      }
+    </div>
+    } @else {
+    <!-- No Data State -->
+    <div class="no-data-container text-center py-5">
+      <div class="no-data-icon mb-3">
+        <svg
+          width="64"
+          height="64"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+            fill="#9CA3AF"
+          />
+        </svg>
+      </div>
+      <h4 class="no-data-title mb-2">No Data Available</h4>
+      <p class="no-data-description text-muted">
+        We couldn't find any coffee products at the moment. Please try again
+        later.
+      </p>
+    </div>
+    }
+  </section>
+</section>
+
 <app-bottom-navigation></app-bottom-navigation>

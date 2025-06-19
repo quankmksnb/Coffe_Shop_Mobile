@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-top-navigation',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './top-navigation.component.html',
   styleUrl: './top-navigation.component.scss',
 })
@@ -15,7 +16,7 @@ export class TopNavigationComponent {
   @Input() rightIconType: 'heart' | 'bag' | 'notification' | 'custom' = 'heart';
   @Input() customRightIcon?: string;
 
-  constructor(private sanitizer: DomSanitizer) {}
+  constructor(private readonly sanitizer: DomSanitizer) {}
   getRightIconSVG(): SafeHtml {
     let svgContent = '';
     switch (this.rightIconType) {
