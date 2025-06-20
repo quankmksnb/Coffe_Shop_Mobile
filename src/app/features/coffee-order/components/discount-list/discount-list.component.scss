@@ -6,6 +6,7 @@
     padding: 0;
   }
 }
+
 .discount-section {
   background-color: var(--white-color);
   margin: 0 24px 24px;
@@ -17,12 +18,14 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    cursor: pointer;
+    user-select: none;
 
     .discount-content {
       display: flex;
       align-items: center;
       gap: 1rem;
-
+      flex: 1;
 
       .discount-text {
         color: var(--btn-color);
@@ -31,17 +34,141 @@
       }
     }
 
-    .discount-arrow {
-      padding: 0;
-      color: var(--input-color);
-      width: 20px;
-      height: 20px;
+    .discount-actions {
       display: flex;
       align-items: center;
+      gap: 8px;
 
-      &:focus {
-        box-shadow: none;
+      .remove-discount {
+        padding: 4px;
+        color: #FF6B6B;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+          background-color: rgba(255, 107, 107, 0.1);
+        }
+
+        &:focus {
+          box-shadow: none;
+        }
+      }
+
+      .discount-arrow {
+        padding: 0;
+        color: var(--input-color);
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        transition: transform 0.3s ease;
+
+        &.rotated {
+          transform: rotate(90deg);
+        }
+
+        &:focus {
+          box-shadow: none;
+        }
       }
     }
+  }
+
+  // Discount List Styles
+  .discount-list {
+    margin-top: 16px;
+    border-top: 1px solid var(--bgc-delivery);
+    padding-top: 16px;
+    animation: slideDown 0.3s ease-out;
+
+    .discount-item {
+      padding: 12px 0;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: rgba(198, 124, 78, 0.05);
+      }
+
+      &.selected {
+        background-color: rgba(198, 124, 78, 0.1);
+      }
+
+      &:not(:last-child) {
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .discount-item-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 12px;
+
+        .discount-item-info {
+          flex: 1;
+
+          .discount-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--btn-color);
+            margin: 0 0 4px 0;
+          }
+
+          .discount-description {
+            font-size: 0.8rem;
+            color: var(--input-color);
+            margin: 0;
+          }
+        }
+
+        .discount-radio {
+          .radio-outer {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--btn-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+
+            .radio-inner {
+              width: 10px;
+              height: 10px;
+              background-color: var(--btn-color);
+              border-radius: 50%;
+              animation: scaleIn 0.2s ease-out;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Animations
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
   }
 }

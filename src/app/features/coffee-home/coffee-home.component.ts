@@ -1,35 +1,38 @@
 import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { BottomNavigationComponent } from "../../shared/bottom-navigation/bottom-navigation.component";
-import { HeaderComponent } from "./header/header.component";
+import { BottomNavigationComponent } from '../../shared/bottom-navigation/bottom-navigation.component';
+import { HeaderComponent } from './header/header.component';
 import CategoryModel from './models/category.model';
 import CoffeeProductModel from './models/coffee-product.model';
 import { CoffeeListService } from './service/coffee-list.service';
+import { PriceFormatPipeTsPipe } from 'src/app/core/pipes/price-format.pipe.ts.pipe';
 
 @Component({
   selector: 'app-coffee-home',
   standalone: true,
-  imports: [BottomNavigationComponent, HeaderComponent, RouterLink, CommonModule],
+  imports: [
+    BottomNavigationComponent,
+    HeaderComponent, 
+    RouterLink,
+    CommonModule,
+    PriceFormatPipeTsPipe,
+  ],
   templateUrl: './coffee-home.component.html',
-  styleUrl: './coffee-home.component.scss'
+  styleUrl: './coffee-home.component.scss',
 })
 export class CoffeeHomeComponent {
-listCategories = signal<CategoryModel[]>([]);
+  listCategories = signal<CategoryModel[]>([]);
   listProducts = signal<CoffeeProductModel[]>([]);
   filteredProducts = signal<CoffeeProductModel[]>([]);
   isLoading = signal<boolean>(false);
+  searchQuery = signal<string>('');
+
   private readonly ingredientPrices: { [key: string]: number } = {
-    coffee: 2,
-    base: 2,
-    espresso: 2,
-    expresso: 2,
-    americano: 2,
-    café: 2,
-    sirop: 1,
-    cacao: 1,
-    rum: 3,
-  };
+  ...Object.fromEntries(['coffee', 'base', 'espresso', 'expresso', 'americano', 'café'].map(item => [item, 2])),
+  ...Object.fromEntries(['sirop', 'cacao'].map(item => [item, 1])),
+  rum: 3,
+};
 
   constructor(
     private readonly coffeeService: CoffeeListService,
@@ -38,17 +41,14 @@ listCategories = signal<CategoryModel[]>([]);
   ngOnInit() {
     this.getCoffeeProductsAPI();
   }
-  // đẩy giá lên state
-  // navigateToProductDetail(productId: number): void {
-  //   const product = this.listProducts().find(p => p.id === productId);
-  //   this.router.navigate(['/coffee-detail', productId], {
-  //     state: { calculatedPrice: product?.price, productData: product },
-  //   });
-  // }
-
+  onSearchChange(searchTerm: string): void {
+    this.searchQuery.set(searchTerm);
+    this.applyFilters();
+  }
   /**
    * Load coffee products from API and convert to our model
    */
+
   private getCoffeeProductsAPI() {
     this.isLoading.set(true);
 
@@ -57,36 +57,47 @@ listCategories = signal<CategoryModel[]>([]);
         this.isLoading.set(false);
 
         if (data && Array.isArray(data) && data.length > 0) {
-          const filteredData = data.filter((item: any) => {
-            const isNumericId =
-              !isNaN(Number(item.id)) &&
-              item.id !== null &&
-              item.id !== undefined;
-            const hasValidImage =
-              item.image &&
-              item.image !== 'none' &&
-              item.image.trim() !== '' &&
-              item.image !== 'null';
+          const listCoffeeProductsGetAPI = data.reduce(
+            (prev: Array<CoffeeProductModel>, item: any) => {
+              // validate img and id
+              if (
+                !item?.id ||
+                isNaN(Number(item.id)) ||
+                !item?.image ||
+                item.image === 'none' ||
+                item.image === 'null' ||
+                item.image.trim() === ''
+              ) {
+                return prev;
+              }
 
-            return isNumericId && hasValidImage;
-          });
+              // Xử lý ingredients
+              if (typeof item.ingredients === 'string') {
+                const ingredients = item.ingredients.split(',');
+                item.ingredients = ingredients.map((ig: string) => ig.trim());
+              }
 
-          const listCoffeeProductsGetAPI = filteredData.map((item: any) => {
-            const ingredients = this.processIngredients(item.ingredients);
-            const calculatedPrice =
-              this.calculatePriceFromIngredients(ingredients);
+              // Tính toán price 
+              const calculatedPrice = this.calculatePriceFromIngredients(
+                item.ingredients || []
+              );
 
-            return {
-              id: item.id,
-              name: item.title,
-              description: item.description,
-              price: calculatedPrice,
-              rating: this.generateRandomRating(),
-              imageUrl: item.image,
-              category: 'all',
-              ingredients: ingredients,
-            };
-          });
+              const coffeeProduct: CoffeeProductModel = {
+                id: item.id,
+                name: item.title,
+                description: item.description,
+                price: calculatedPrice,
+                rating: this.generateRandomRating(),
+                imageUrl: item.image,
+                category: 'all',
+                ingredients: item.ingredients || [],
+              };
+
+              prev.push(coffeeProduct);
+              return prev;
+            },
+            []
+          );
 
           this.listProducts.set(listCoffeeProductsGetAPI);
           this.generateCategoriesFromIngredients(listCoffeeProductsGetAPI);
@@ -105,41 +116,6 @@ listCategories = signal<CategoryModel[]>([]);
         this.listProducts.set([]);
       },
     });
-  }
-
-  /**
-   * Xử lý ingredients từ API data
-   */
-  private processIngredients(ingredientsData: any): string[] {
-    if (!ingredientsData) return [];
-
-    // Nếu là array
-    if (Array.isArray(ingredientsData)) {
-      return ingredientsData.filter((item) => item && typeof item === 'string');
-    }
-
-    // Nếu là string JSON
-    if (typeof ingredientsData === 'string') {
-      try {
-        const parsed = JSON.parse(ingredientsData);
-        if (Array.isArray(parsed)) {
-          return parsed.filter((item) => item && typeof item === 'string');
-        }
-        // Nếu là string có dấu phẩy
-        return ingredientsData
-          .split(',')
-          .map((item) => item.trim())
-          .filter((item) => item);
-      } catch {
-        // Nếu parse failed, coi như string thông thường
-        return ingredientsData
-          .split(',')
-          .map((item) => item.trim())
-          .filter((item) => item);
-      }
-    }
-
-    return [];
   }
 
   private generateRandomRating(): number {
@@ -213,8 +189,6 @@ listCategories = signal<CategoryModel[]>([]);
         console.log(`Unknown ingredient: ${normalizedIngredient} = $0.5`);
       }
     });
-
-    // Làm tròn đến 2 chữ số thập phân
     return Math.round(totalPrice * 100) / 100;
   }
 
@@ -230,7 +204,6 @@ listCategories = signal<CategoryModel[]>([]);
    */
   private generateCategoriesFromIngredients(products: CoffeeProductModel[]) {
     const uniqueIngredientList = new Set<string>();
-
     // Lấy tất cả ingredients từ các products
     products.forEach((product) => {
       product.ingredients.forEach((ingredient) => {
@@ -280,5 +253,39 @@ listCategories = signal<CategoryModel[]>([]);
       `Filtered products for category "${categoryId}":`,
       this.filteredProducts()
     );
+  }
+
+
+   private applyFilters(): void {
+    const allProducts = this.listProducts();
+    const currentSearchQuery = this.searchQuery().toLowerCase().trim();
+    const activeCategory = this.listCategories().find(cat => cat.isActive);
+    
+    let filtered = allProducts;
+
+    // Áp dụng filter theo category
+    if (activeCategory && activeCategory.id !== 'all') {
+      filtered = filtered.filter((product) =>
+        product.ingredients.some(
+          (ingredient) =>
+            ingredient.toLowerCase().trim() === activeCategory.id.toLowerCase()
+        )
+      );
+    }
+
+    // Áp dụng search filter
+    if (currentSearchQuery) {
+      filtered = filtered.filter((product) =>
+        product.name.toLowerCase().includes(currentSearchQuery) ||
+        product.description?.toLowerCase().includes(currentSearchQuery) ||
+        product.ingredients.some(ingredient => 
+          ingredient.toLowerCase().includes(currentSearchQuery)
+        )
+      );
+    }
+
+    this.filteredProducts.set(filtered);
+    
+    console.log(`Applied filters - Category: "${activeCategory?.id}", Search: "${currentSearchQuery}"`, filtered);
   }
 }

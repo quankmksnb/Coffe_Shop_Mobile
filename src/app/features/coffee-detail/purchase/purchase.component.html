@@ -2,8 +2,17 @@
   <div class="d-flex align-items-center justify-content-between">
     <div class="price-section">
       <h6>Price</h6>
-      <p class="price-value mb-0">$ {{ getDisplayPrice()}}</p>
+      <p class="price-value mb-0">
+        {{ getDisplayPrice() | priceFormatPipeTs }}
+      </p>
     </div>
-    <button class="btn buy-btn" type="button" [routerLink]="['/coffee-order']">Buy Now</button>
+    <button
+      class="btn buy-btn"
+      type="button"
+      [routerLink]="['/coffee-order', id]"
+      [state]="{priceDetail: getDisplayPrice()}"
+    >
+      Buy Now
+    </button>
   </div>
 </footer>

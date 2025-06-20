@@ -1,17 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, SimpleChanges } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { PriceFormatPipeTsPipe } from 'src/app/core/pipes/price-format.pipe.ts.pipe';
 
 @Component({
   selector: 'app-purchase',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, PriceFormatPipeTsPipe],
   templateUrl: './purchase.component.html',
   styleUrl: './purchase.component.scss',
 })
 export class PurchaseComponent {
   @Input() price: number = 0;
-  @Input() selectedSize: string = 'S'; // Mặc định size M
+  @Input() selectedSize: string = 'S';
+  @Input() id: number = -1;
   currentPrice: number = 0;
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -44,4 +46,5 @@ export class PurchaseComponent {
   getDisplayPrice(): number {
     return this.currentPrice;
   }
+  constructor(private readonly router: Router) {}
 }

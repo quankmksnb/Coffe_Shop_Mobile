@@ -86,9 +86,12 @@
             class="search-input"
             placeholder="Search coffee"
             aria-label="Search for coffee"
+            [(ngModel)]="searchQuery"
+            (input)="onSearchInput($event)"
+            name="searchQuery"
           />
         </div>
-        <button type="button" class="filter-btn" aria-label="Open filters">
+        <button type="button" class="filter-btn" aria-label="Open filters" (click)="clearSearch()">
           <svg
             width="24"
             height="24"

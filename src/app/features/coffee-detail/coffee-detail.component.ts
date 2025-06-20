@@ -1,57 +1,46 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TopNavigationComponent } from 'src/app/shared/top-navigation/top-navigation.component';
 import CoffeeProductModel from '../coffee-home/models/coffee-product.model';
 import { CoffeeDetailService } from './service/product-detail.service';
-import { PurchaseComponent } from "./purchase/purchase.component";
+import { PurchaseComponent } from './purchase/purchase.component';
 
 @Component({
   selector: 'app-coffee-detail',
   standalone: true,
   imports: [TopNavigationComponent, CommonModule, PurchaseComponent],
   templateUrl: './coffee-detail.component.html',
-  styleUrl: './coffee-detail.component.scss'
+  styleUrl: './coffee-detail.component.scss',
 })
 export class CoffeeDetailComponent {
-productDetail: CoffeeProductModel | undefined;
-  // xử lý read more
+  // Only productDetail uses signal
+  productDetail = signal<CoffeeProductModel | undefined>(undefined);
+
+  // Rest remain as regular properties
   isDescriptionExpanded = false;
-  maxDescriptionLines = 3;
   calculatedPrice: number = 0;
   ratingProduct: number = 0;
+  id: number = -1;
   selectedSize: string = 'S';
 
   constructor(
-    private readonly coffeeDetailService: CoffeeDetailService,
-    private readonly cdr: ChangeDetectorRef,
-    private readonly activatedRoute: ActivatedRoute,
-    private readonly router: Router
+    private readonly coffeeDetailService: CoffeeDetailService
   ) {
     console.log('Constructor called');
-    // const state = this.router.getCurrentNavigation()?.extras.state;
-    // if (state) {
-    //   this.calculatedPrice = state['calculatedPrice'] ?? 0;
-    //   this.ratingProduct = state['rating'] ?? 0;
-    //   );
-    // }
   }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((params) => {
-      const productId = Number(params['id']);
-      if (productId && productId > 0) {
-        this.getProductDetail(productId);
-      }
-    });
     const state = window.history.state;
     if (state) {
       this.calculatedPrice = state['calculatedPrice'] ?? 0;
       this.ratingProduct = state['rating'] ?? 0;
+      this.id = state['id'] ?? 0;
+      this.getProductDetail(this.id);
       console.log(
         'giá là: ',
         this.calculatedPrice,
-        'Rating: ',
+        'rating: ',
         this.ratingProduct
       );
     }
@@ -62,9 +51,9 @@ productDetail: CoffeeProductModel | undefined;
       next: (data) => {
         console.log('Raw API data:', data);
         if (data) {
-          this.productDetail = this.mapApiDataToModel(data);
-          // Force change detection
-          this.cdr.detectChanges();
+          const mappedProduct = this.mapApiDataToModel(data);
+          this.productDetail.set(mappedProduct);
+          // No need for change detection - signals handle this automatically
         } else {
           console.error('Product not found!');
         }
@@ -93,26 +82,28 @@ productDetail: CoffeeProductModel | undefined;
   toggleDescription(): void {
     this.isDescriptionExpanded = !this.isDescriptionExpanded;
   }
-  shouldShowReadMore(): boolean {
-    if (!this.productDetail?.description) return false;
 
-    const estimatedCharsPerLine = 40;
-    const maxChars = this.maxDescriptionLines * estimatedCharsPerLine;
-
-    return this.productDetail.description.length > maxChars;
-  }
-
-  getDisplayDescription(): string {
-    if (!this.productDetail?.description) return '';
-
-    if (this.isDescriptionExpanded || !this.shouldShowReadMore()) {
-      return this.productDetail.description;
-    }
-
-    const estimatedCharsPerLine = 40;
-    const maxChars = this.maxDescriptionLines * estimatedCharsPerLine;
-
-    return this.productDetail.description.substring(0, maxChars) + '...';
+  get shouldShowReadMore(): boolean {
+    const product = this.productDetail();
+    if (!product?.description) return false;
+    // tạo 1 thẻ ảo để đo nếu description dài hơn 3 dòng
+    const element = document.createElement('div');
+    element.style.cssText = `
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 100%;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    visibility: hidden;
+    position: absolute;
+  `;
+    element.textContent = product.description;
+    document.body.appendChild(element);
+    const isTruncated = element.scrollHeight > element.clientHeight;
+    document.body.removeChild(element);
+    return isTruncated;
   }
 
   onSizeChange(size: string): void {

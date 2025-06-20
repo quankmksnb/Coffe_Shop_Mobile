@@ -1,10 +1,10 @@
 <app-top-navigation title="Detail" rightIconType="heart"></app-top-navigation>
 
-<section class="coffee-detail">
+<section class="coffee-detail row">
   <figure class="coffee-image">
     <img
-      src="{{ productDetail?.imageUrl }}"
-      alt="{{ productDetail?.name }}"
+      src="{{ productDetail()?.imageUrl }}"
+      alt="{{ productDetail()?.name }}"
       class="img-fluid"
     />
   </figure>
@@ -12,7 +12,7 @@
   <article class="coffee-header">
     <div class="d-flex align-items-center mb-3">
       <div class="d-flex flex-column">
-        <h2 class="coffee-title">{{ productDetail?.name }}</h2>
+        <h2 class="coffee-title">{{ productDetail()?.name }}</h2>
         <span class="coffee-type">Ice/Hot</span>
         <span class="coffee-rating d-flex align-items-center">
           <svg
@@ -28,7 +28,8 @@
             />
           </svg>
           <span class="rating-value"
-            >{{productDetail?.rating}}<span class="rating-count">(230)</span></span
+            >{{ productDetail()?.rating
+            }}<span class="rating-count">(230)</span></span
           >
         </span>
       </div>
@@ -203,17 +204,17 @@
 
   <article class="coffee-description">
     <h2 class="description-title">Description</h2>
-    <p class="description-text">
-      {{ getDisplayDescription() }}
-      <button
-        *ngIf="shouldShowReadMore()"
-        type="button"
-        class="btn read-more-btn p-0"
-        (click)="toggleDescription()"
-      >
-        {{ isDescriptionExpanded ? "Read Less" : "Read More" }}
-      </button>
+    <p class="description-text mb-0" [class.expanded]="isDescriptionExpanded">
+      {{ productDetail()?.description }}
     </p>
+    <button
+      *ngIf="shouldShowReadMore"
+      type="button"
+      class="btn read-more-btn p-0"
+      (click)="toggleDescription()"
+    >
+      {{ isDescriptionExpanded ? "Read Less" : "Read More" }}
+    </button>
   </article>
 
   <article class="size-selection">
@@ -267,7 +268,5 @@
     </fieldset>
   </article>
 </section>
-<app-purchase 
-  [price]="productDetail?.price || 0" 
-  [selectedSize]="selectedSize">
+<app-purchase [price]="productDetail()?.price || 0" [selectedSize]="selectedSize" [id] = "productDetail()?.id || -1">
 </app-purchase>

@@ -29,11 +29,20 @@
         <p class="product-variant">Deep Foam</p>
       </div>
       <div class="quantity-control d-flex align-items-center">
-        <button type="button" class="btn btn-outline-secondary quantity-btn">
+        <button 
+          type="button" 
+          class="btn btn-outline-secondary quantity-btn"
+          (click)="decreaseQuantity()"
+          [disabled]="quantity <= 1"
+        >
           <i class="ri-subtract-line"></i>
         </button>
-        <span class="quantity-display">1</span>
-        <button type="button" class="btn btn-outline-secondary quantity-btn">
+        <span class="quantity-display">{{ quantity }}</span>
+        <button 
+          type="button" 
+          class="btn btn-outline-secondary quantity-btn"
+          (click)="increaseQuantity()"
+        >
           <i class="ri-add-line"></i>
         </button>
       </div>
@@ -42,7 +51,7 @@
   <hr />
 </section>
 
-<app-discount-list></app-discount-list>
+<app-discount-list (discountSelected)="onDiscountSelected($event)"></app-discount-list>
 
 <!-- Payment Summary -->
 <section class="payment-summary card">
@@ -51,16 +60,25 @@
 
     <div class="summary-items">
       <div class="summary-item d-flex justify-content-between">
-        <span class="item-label">Price</span>
-        <span class="item-value">$ 4.53</span>
+        <span class="item-label">Price ({{ quantity }} x {{ basePrice | priceFormatPipeTs }})</span>
+        <span class="item-value">{{ priceDetail | priceFormatPipeTs }}</span>
       </div>
 
       <div class="summary-item d-flex justify-content-between">
         <span class="item-label">Delivery Fee</span>
         <div class="fee-pricing d-flex gap-2">
-          <span class="original-fee">$ 2.0</span>
-          <span class="item-value">$ 1.0</span>
+          <span class="original-fee" [style.text-decoration]="discountPercent > 0 ? 'line-through' : 'none'">
+            {{ originalDeliveryFee | priceFormatPipeTs }}
+          </span>
+          <span class="item-value" *ngIf="discountPercent > 0">
+            {{ deliveryFee | priceFormatPipeTs }}
+          </span>
         </div>
+      </div>
+
+      <div class="summary-item d-flex justify-content-between font-weight-bold">
+        <span class="item-label">Total</span>
+        <span class="item-value">{{ getTotalAmount() | priceFormatPipeTs }}</span>
       </div>
     </div>
   </div>
@@ -109,7 +127,7 @@
     </svg>
     <div class="payment-info d-flex flex-column align-items-start">
       <span class="payment-type">Cash/Wallet</span>
-      <span class="total-amount">$ 5.53</span>
+      <span class="total-amount">{{ getTotalAmount() | priceFormatPipeTs }}</span>
     </div>
     <svg class="icon-left" width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M5.72468 9.64137C5.94657 9.41948 6.29379 9.39931 6.53847 9.58086L6.60857 9.64137L12 15.0325L17.3914 9.64137C17.6132 9.41948 17.9605 9.39931 18.2051 9.58086L18.2752 9.64137C18.4971 9.86326 18.5173 10.2105 18.3357 10.4552L18.2752 10.5253L12.4419 16.3586C12.22 16.5805 11.8728 16.6006 11.6281 16.4191L11.558 16.3586L5.72468 10.5253C5.48061 10.2812 5.48061 9.88545 5.72468 9.64137Z" fill="#2A2A2A"/>
