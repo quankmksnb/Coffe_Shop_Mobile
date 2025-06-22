@@ -35,10 +35,9 @@
             <a
               [title]="product.name"
               [routerLink]="['/coffee-detail/', product.id]"
-              [state]="{
+              [queryParams]="{
                 calculatedPrice: product.price,
-                rating: product.rating,
-                id: product.id
+                rating: product.rating
               }"
             >
               <img

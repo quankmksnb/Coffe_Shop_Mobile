@@ -25,25 +25,37 @@ export class CoffeeDetailComponent {
   selectedSize: string = 'S';
 
   constructor(
-    private readonly coffeeDetailService: CoffeeDetailService
-  ) {
-    console.log('Constructor called');
-  }
+    private readonly coffeeDetailService: CoffeeDetailService,
+    private readonly route: ActivatedRoute,
+    private readonly router: Router
+  ) {}
 
   ngOnInit(): void {
-    const state = window.history.state;
-    if (state) {
-      this.calculatedPrice = state['calculatedPrice'] ?? 0;
-      this.ratingProduct = state['rating'] ?? 0;
-      this.id = state['id'] ?? 0;
-      this.getProductDetail(this.id);
-      console.log(
-        'giá là: ',
-        this.calculatedPrice,
-        'rating: ',
-        this.ratingProduct
-      );
+    this.route.paramMap.subscribe(params => {
+    const idParam = params.get('id');
+    if (idParam) {
+      this.id = parseInt(idParam, 10);
+      this.route.queryParamMap.subscribe(queryParams => {
+        const priceParam = queryParams.get('calculatedPrice');
+        const ratingParam = queryParams.get('rating');
+        
+        if (priceParam && ratingParam) {
+          this.calculatedPrice = parseFloat(priceParam);
+          this.ratingProduct = parseFloat(ratingParam);
+          // Fetch product details
+          this.getProductDetail(this.id);
+        } else {
+          // Fallback: nếu không có query params, redirect về home
+          console.warn('Missing required query parameters');
+          this.router.navigate(['/coffee-home']);
+        }
+      });
+    } else {
+      // Fallback: nếu không có ID, redirect về home
+      console.warn('Missing product ID');
+      this.router.navigate(['/coffee-home']);
     }
+  });
   }
 
   getProductDetail(id: number): void {

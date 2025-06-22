@@ -4,6 +4,7 @@ import { DeliveryAddressComponent } from './components/delivery-address/delivery
 import { DiscountListComponent } from './components/discount-list/discount-list.component';
 import { PriceFormatPipeTsPipe } from 'src/app/core/pipes/price-format.pipe.ts.pipe';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-coffee-order',
@@ -27,13 +28,20 @@ export class CoffeeOrderComponent {
   deliveryFee: number = 2.0;
   discountPercent: number = 0;
 
+  constructor(private route: ActivatedRoute, private router: Router) {}
+
   ngOnInit(): void {
-    const state = window.history.state;
-    if (state) {
+    this.route.queryParamMap.subscribe(queryParams => {
+      const priceParam = queryParams.get('priceDetail');
       
-      this.priceDetail = state['priceDetail'] ?? 0;
-      this.basePrice = this.priceDetail;
-    }
+      if (priceParam) {
+        this.priceDetail = parseFloat(priceParam);
+        this.basePrice = this.priceDetail;
+      } else {
+        // Fallback: redirect về coffee-home nếu thiếu price
+        this.router.navigate(['/coffee-home']);
+      }
+    });
 
     this.applyDiscount(this.discountPercent);
   }

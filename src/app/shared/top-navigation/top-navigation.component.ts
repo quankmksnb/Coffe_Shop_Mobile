@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
@@ -16,7 +16,7 @@ export class TopNavigationComponent {
   @Input() rightIconType: 'heart' | 'bag' | 'notification' | 'custom' = 'heart';
   @Input() customRightIcon?: string;
 
-  constructor(private readonly sanitizer: DomSanitizer) {}
+  constructor(private readonly sanitizer: DomSanitizer, private location: Location) {}
   getRightIconSVG(): SafeHtml {
     let svgContent = '';
     switch (this.rightIconType) {
@@ -65,5 +65,8 @@ export class TopNavigationComponent {
         svgContent = '';
     }
     return this.sanitizer.bypassSecurityTrustHtml(svgContent);
+  }
+  goBack(): void {
+    this.location.back();
   }
 }
